@@ -1,0 +1,9 @@
+{
+  "enterText": "введите текст",
+  "settings": "настройки",
+  "getTable": "копировать rivTABLE",
+  "generateTable": "пересобрать rivTABLE",
+  "pasteTable": "вставить rivTABLE",
+  "encryptSnack": "шифровать",
+  "decryptSnack": "дешифровать"
+}

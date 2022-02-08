@@ -1,0 +1,9 @@
+{
+  "enterText": "enter text",
+  "settings": "settings",
+  "getTable": "copy rivTABLE",
+  "generateTable": "new rivTABLE",
+  "pasteTable": "paste rivTABLE",
+  "encryptSnack": "encrypt mode",
+  "decryptSnack": "decrypt mode"
+}
