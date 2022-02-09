@@ -24,6 +24,20 @@ class _HomeState extends State<Home> {
             left: 20,
             child: SettingsScreen()
           ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: const Text(
+                'catalin software© 2022',
+                style: TextStyle(
+                  fontWeight: FontWeight.w300,
+                  fontSize: 16,
+                  color: kDarkColor
+                )
+              ),
+            ),
+          ),
           AnimatedPositioned(
             left: _leftPadding,
             duration: const Duration(milliseconds: 600),

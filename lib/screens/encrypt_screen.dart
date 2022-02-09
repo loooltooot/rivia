@@ -25,7 +25,7 @@ class _EncryptScreenState extends State<EncryptScreen> {
             AppLocalizations.of(context)!.enterText,
             style: const TextStyle(
               color: kBrightColor,
-              fontSize: 20,
+              fontSize: 30,
               fontWeight: FontWeight.w700
             ),
           ),
@@ -36,28 +36,28 @@ class _EncryptScreenState extends State<EncryptScreen> {
               textAlign: TextAlign.center,
               cursorColor: kBrightColor,
               style: const TextStyle(
-                  color: kBrightColor,
-                  fontSize: 16
+                color: kBrightColor,
+                fontSize: 16
               ),
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                   borderSide: const BorderSide(
-                      color: kBrightColor,
-                      width: 3
+                    color: kBrightColor,
+                    width: 3
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                   borderSide: const BorderSide(
-                      color: kBrightColor,
-                      width: 3
+                    color: kBrightColor,
+                    width: 3
                   ),
                 )
               ),
             ),
           ),
-          const Padding(padding: EdgeInsets.all(5)),
+          const Padding(padding: EdgeInsets.all(10)),
           SizedBox(
             width: MediaQuery.of(context).size.width - 90,
             child: Row(
@@ -113,10 +113,28 @@ class _EncryptScreenState extends State<EncryptScreen> {
                       fontSize: 16
                   ),
                 ),
+                const Padding(padding: EdgeInsets.all(20)),
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ButtonStyle(
+                    elevation: MaterialStateProperty.all(0),
+                    backgroundColor: MaterialStateProperty.all(kBrightColor),
+                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)
+                    ))
+                  ),
+                  child: Text(
+                    AppLocalizations.of(context)!.button,
+                    style: const TextStyle(
+                      color: kDarkColor,
+                      fontSize: 16
+                    ),
+                  )
+                )
               ],
             ),
           ),
-          const Padding(padding: EdgeInsets.all(5)),
+          const Padding(padding: EdgeInsets.all(25)),
           Container(
             width: MediaQuery.of(context).size.width - 90,
             height: MediaQuery.of(context).size.height / 3.5,

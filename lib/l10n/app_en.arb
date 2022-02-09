@@ -5,5 +5,6 @@
   "generateTable": "new rivTABLE",
   "pasteTable": "paste rivTABLE",
   "encryptSnack": "encrypt mode",
-  "decryptSnack": "decrypt mode"
+  "decryptSnack": "decrypt mode",
+  "button": "start"
 }
