@@ -6,5 +6,6 @@
   "pasteTable": "paste rivTABLE",
   "encryptSnack": "encrypt mode",
   "decryptSnack": "decrypt mode",
-  "button": "start"
+  "button": "start",
+  "changeKeyButton": "submit"
 }

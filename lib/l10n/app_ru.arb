@@ -6,5 +6,6 @@
   "pasteTable": "вставить rivTABLE",
   "encryptSnack": "шифровать",
   "decryptSnack": "дешифровать",
-  "button": "начать"
+  "button": "начать",
+  "changeKeyButton": "подтвердить"
 }
