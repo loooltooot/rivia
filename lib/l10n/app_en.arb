@@ -7,5 +7,6 @@
   "encryptSnack": "encrypt mode",
   "decryptSnack": "decrypt mode",
   "button": "start",
-  "changeKeyButton": "submit"
+  "changeKeyButton": "submit",
+  "copied": "copied"
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:rivia/res/app_text_button.dart';
+import 'package:rivia/res/widgets/app_text_button.dart';
 import 'package:rivia/res/constants.dart';
 
 class SettingsScreen extends StatelessWidget {

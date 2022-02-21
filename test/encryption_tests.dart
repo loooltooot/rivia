@@ -1,11 +1,14 @@
+import 'package:rivia/res/models/riv_table.dart';
 import 'package:rivia/res/models/rivia.dart';
+import 'package:rivia/res/models/table_generator.dart';
 import 'package:test/test.dart';
 
 void main() {
   group('Rivia', () {
     String en = 'Hello, I\'m Emir, Rivia and Catalin software founder!';
     String ru = 'Привет, меня зовут Эмир, я основатель Rivia и Catalin software';
-    Rivia rivia = Rivia();
+    RivTable table = RivTable();
+    Rivia rivia = Rivia(table.table);
 
     test('.decrypt(text, key)', () {
       expect(rivia.decryptText(rivia.encryptText(en, 'jora'), 'jora'),

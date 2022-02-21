@@ -4,6 +4,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rivia/res/bloc/rivia_bloc.dart';
 import 'package:rivia/res/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/services.dart';
+
+import '../res/bloc/data_bloc.dart';
 
 class EncryptScreen extends StatefulWidget {
   const EncryptScreen({Key? key}) : super(key: key);
@@ -15,11 +18,14 @@ class EncryptScreen extends StatefulWidget {
 class _EncryptScreenState extends State<EncryptScreen> {
   bool _isDecrypt = false;
   String _text = '';
-  String _key = 'oleg';
+  String _key = 'emir';
 
   @override
   Widget build(BuildContext context) {
-    Bloc _bloc = context.read<RiviaBloc>();
+    Bloc _blocRivia = context.read<RiviaBloc>();
+    Bloc _blocData = context.read<DataBloc>();
+
+    _blocData.add(GetKey());
 
     return SizedBox(
       width: MediaQuery.of(context).size.width - 30,
@@ -43,11 +49,18 @@ class _EncryptScreenState extends State<EncryptScreen> {
               onChanged: (value) {
                 _text = value;
               },
+              onSubmitted: (value) {
+                _text = value;
+                _isDecrypt ? _blocRivia.add(Decryption(text: _text, key: _key))
+                    : _blocRivia.add(Encryption(text: _text, key: _key));
+              },
               textAlign: TextAlign.center,
               cursorColor: kBrightColor,
-              style: const TextStyle(
-                color: kBrightColor,
-                fontSize: 16
+              style: GoogleFonts.notoSans(
+                textStyle: const TextStyle(
+                  color: kBrightColor,
+                  fontSize: 16,
+                )
               ),
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
@@ -99,15 +112,9 @@ class _EncryptScreenState extends State<EncryptScreen> {
                       setState(() {
                         _isDecrypt = !_isDecrypt;
                       });
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          duration: const Duration(seconds: 1, milliseconds: 500),
-                          content: Text(_isDecrypt ?
-                          AppLocalizations.of(context)!.decryptSnack :
-                          AppLocalizations.of(context)!.encryptSnack
-                          )
-                        )
-                      );
+                      _showSnackBar(context, _isDecrypt ?
+                      AppLocalizations.of(context)!.decryptSnack :
+                      AppLocalizations.of(context)!.encryptSnack);
                     },
                     activeTrackColor: Colors.transparent,
                     activeColor: kBrightColor,
@@ -126,8 +133,8 @@ class _EncryptScreenState extends State<EncryptScreen> {
                 const Padding(padding: EdgeInsets.all(20)),
                 ElevatedButton(
                   onPressed: () {
-                    _isDecrypt ? _bloc.add(Decryption(text: _text, key: _key))
-                        : _bloc.add(Encryption(text: _text, key: _key));
+                    _isDecrypt ? _blocRivia.add(Decryption(text: _text, key: _key))
+                        : _blocRivia.add(Encryption(text: _text, key: _key));
                   },
                   style: ButtonStyle(
                     elevation: MaterialStateProperty.all(0),
@@ -172,13 +179,19 @@ class _EncryptScreenState extends State<EncryptScreen> {
                 }
 
                 if(state is EndedState) {
-                  return Text(
-                    state.result,
-                    style: GoogleFonts.notoSans(
-                      textStyle: const TextStyle(
-                        color: kBrightColor,
-                        fontSize: 16,
-                      )
+                  return GestureDetector(
+                    onTap: () {
+                      Clipboard.setData(ClipboardData(text: state.result));
+                      _showSnackBar(context, AppLocalizations.of(context)!.copied);
+                    },
+                    child: Text(
+                      state.result,
+                      style: GoogleFonts.notoSans(
+                        textStyle: const TextStyle(
+                          color: kBrightColor,
+                          fontSize: 16,
+                        )
+                      ),
                     ),
                   );
                 }
@@ -201,13 +214,47 @@ class _EncryptScreenState extends State<EncryptScreen> {
                   Icons.paste,
                   color: kBrightColor,
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  String? temp = await _getClipboardData();
+                  setState(() {
+                    _key = temp ?? 'emir';
+                  });
+                  _blocData.add(InsertKey(key: _key));
+                },
               ),
-              Text(
-                _key,
-                style: const TextStyle(
-                    color: kBrightColor,
-                    fontSize: 16
+              GestureDetector(
+                onTap: () {
+                  Clipboard.setData(ClipboardData(text: _key));
+                  _showSnackBar(context, AppLocalizations.of(context)!.copied);
+                },
+                child: BlocBuilder<DataBloc, DataState>(
+                  builder: (_, state) {
+                    if(state is DataProcessingState) {
+                      return const Center(
+                        child: CircularProgressIndicator(
+                            color: kBrightColor
+                        ),
+                      );
+                    }
+
+                    if(state is DataEndedState) {
+                      _key = state.result;
+                      return Text(
+                        _key.length > 7 ? _key.substring(0, 6) + '...' : _key,
+                        style: const TextStyle(
+                          color: kBrightColor,
+                          fontSize: 16
+                        ),
+                      );
+                    }
+
+                    return const Text(
+                      '',
+                      style: TextStyle(
+                        color: kBrightColor,
+                      ),
+                    );
+                  }
                 ),
               ),
               IconButton(
@@ -238,6 +285,14 @@ class _EncryptScreenState extends State<EncryptScreen> {
                                     setState(() {
                                       _key = value;
                                     });
+                                    _blocData.add(InsertKey(key: _key));
+                                  },
+                                  onFieldSubmitted: (value) {
+                                    setState(() {
+                                      _key = value;
+                                    });
+                                    _blocData.add(InsertKey(key: _key));
+                                    Navigator.of(context).pop();
                                   },
                                   initialValue: _key,
                                   autofocus: true,
@@ -290,5 +345,25 @@ class _EncryptScreenState extends State<EncryptScreen> {
         ],
       ),
     );
+  }
+
+  void _showSnackBar(BuildContext context, String content) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: kBrightColor,
+        duration: const Duration(seconds: 1, milliseconds: 500),
+        content: Text(
+          content,
+          style: const TextStyle(
+            color: kDarkColor
+          ),
+        )
+      )
+    );
+  }
+
+  Future<String?> _getClipboardData() async {
+    ClipboardData? data = await Clipboard.getData(Clipboard.kTextPlain);
+    return data!.text;
   }
 }

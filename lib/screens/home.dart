@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rivia/res/bloc/data_bloc.dart';
 import 'package:rivia/res/bloc/rivia_bloc.dart';
 import 'package:rivia/res/constants.dart';
 import 'package:rivia/screens/encrypt_screen.dart';
@@ -18,8 +19,15 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => RiviaBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<RiviaBloc>(
+            create: (_) => RiviaBloc()
+        ),
+        BlocProvider<DataBloc>(
+            create: (_) => DataBloc()
+        )
+      ],
       child: Scaffold(
         backgroundColor: kBrightColor,
         body: Stack(

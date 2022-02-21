@@ -7,5 +7,6 @@
   "encryptSnack": "шифровать",
   "decryptSnack": "дешифровать",
   "button": "начать",
-  "changeKeyButton": "подтвердить"
+  "changeKeyButton": "подтвердить",
+  "copied": "скопировано"
 }

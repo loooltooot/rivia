@@ -1,12 +1,9 @@
 import 'package:rivia/res/models/riv_table.dart';
 
 class Rivia {
-  RivTable rivTABLE = RivTable();
   late List<String> table;
 
-  Rivia() {
-    table = rivTABLE.table;
-  }
+  Rivia(this.table);
 
   String encryptText(String text, String key) {
     String result = '';
