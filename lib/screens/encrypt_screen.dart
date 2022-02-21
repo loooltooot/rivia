@@ -285,7 +285,6 @@ class _EncryptScreenState extends State<EncryptScreen> {
                                     setState(() {
                                       _key = value;
                                     });
-                                    _blocData.add(InsertKey(key: _key));
                                   },
                                   onFieldSubmitted: (value) {
                                     setState(() {
@@ -308,6 +307,7 @@ class _EncryptScreenState extends State<EncryptScreen> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
+                                    _blocData.add(InsertKey(key: _key));
                                     Navigator.of(context).pop();
                                   },
                                   child: Container(

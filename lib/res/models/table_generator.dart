@@ -5,7 +5,13 @@ import 'package:rivia/res/models/riv_table.dart';
 class TableGenerator {
   static String generateTable(String seedStr) {
     RivTable rivTable = RivTable();
-    int seed = seedStr.split('').hashCode * 13 - 97;
+    int seed = 0;
+
+    for(int el in seedStr.codeUnits) {
+      seed += el;
+    }
+
+    seed *= 13;
 
     List<String> mainPart = rivTable.table.sublist(0, 432);
     List<String> olegPart = rivTable.table.sublist(432, 865);

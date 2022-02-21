@@ -3,13 +3,14 @@ import 'package:rivia/res/constants.dart';
 
 class AppTextButton extends StatelessWidget {
   final String title;
+  final Function() onPressed;
 
-  const AppTextButton({Key? key, required this.title}) : super(key: key);
+  const AppTextButton({Key? key, required this.title, required this.onPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () {},
+      onPressed: onPressed,
       style: ButtonStyle(
         padding: MaterialStateProperty.all(EdgeInsets.zero)
       ),
