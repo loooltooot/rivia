@@ -8,7 +8,7 @@ class TableGenerator {
     int seed = 0;
 
     for(int el in seedStr.codeUnits) {
-      seed += el;
+      seed += el + 23;
     }
 
     seed *= 13;

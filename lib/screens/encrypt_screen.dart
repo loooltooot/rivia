@@ -19,6 +19,7 @@ class _EncryptScreenState extends State<EncryptScreen> {
   bool _isDecrypt = false;
   String _text = '';
   String _key = 'emir';
+  String _tempKey = 'emir';
 
   @override
   Widget build(BuildContext context) {
@@ -275,22 +276,25 @@ class _EncryptScreenState extends State<EncryptScreen> {
                             width: MediaQuery.of(context).size.width - 80,
                             height: 98,
                             decoration: BoxDecoration(
-                              color: kDarkColor,
-                              borderRadius: BorderRadius.circular(30)
+                              color: kDarkColor.withGreen(20).withBlue(20).withRed(20),
+                              borderRadius: BorderRadius.circular(30),
                             ),
                             child: Column(
                               children: [
                                 TextFormField(
                                   onChanged: (value) {
                                     setState(() {
-                                      _key = value;
+                                      _tempKey = value;
                                     });
                                   },
                                   onFieldSubmitted: (value) {
-                                    setState(() {
-                                      _key = value;
-                                    });
-                                    _blocData.add(InsertKey(key: _key));
+                                    if(value.trim() != '') {
+                                      _blocData.add(InsertKey(key: value));
+                                    } else {
+                                      _blocData.add(InsertKey(key: 'emir'));
+                                    }
+                                    setState(() {});
+                                    FocusScope.of(context).unfocus();
                                     Navigator.of(context).pop();
                                   },
                                   initialValue: _key,
@@ -307,7 +311,13 @@ class _EncryptScreenState extends State<EncryptScreen> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    _blocData.add(InsertKey(key: _key));
+                                    if(_tempKey.trim() != '') {
+                                      _blocData.add(InsertKey(key: _tempKey));
+                                    } else {
+                                      _blocData.add(InsertKey(key: 'emir'));
+                                    }
+                                    setState(() {});
+                                    FocusScope.of(context).unfocus();
                                     Navigator.of(context).pop();
                                   },
                                   child: Container(

@@ -55,15 +55,20 @@ class SettingsScreen extends StatelessWidget {
                                   _seed = value;
                                 },
                                 onSubmitted: (value) {
-                                  _bloc.add(InsertTable(table: TableGenerator.generateTable(_seed)));
+                                  if(_seed.trim() != '') {
+                                    _bloc.add(InsertTable(table: TableGenerator.generateTable(_seed)));
+                                  } else {
+                                    _bloc.add(InsertTable(table: TableGenerator.generateTable('olega')));
+                                  }
+                                  FocusScope.of(context).unfocus();
                                   Navigator.of(context).pop();
                                 },
                                 autofocus: true,
                                 textAlign: TextAlign.center,
                                 cursorColor: kBrightColor,
                                 style: const TextStyle(
-                                    color: kBrightColor,
-                                    fontSize: 16
+                                  color: kBrightColor,
+                                  fontSize: 16
                                 ),
                                 decoration: InputDecoration(
                                   hintText: 'seed',
@@ -75,7 +80,12 @@ class SettingsScreen extends StatelessWidget {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  _bloc.add(InsertTable(table: TableGenerator.generateTable(_seed)));
+                                  if(_seed.trim() != '') {
+                                    _bloc.add(InsertTable(table: TableGenerator.generateTable(_seed)));
+                                  } else {
+                                    _bloc.add(InsertTable(table: TableGenerator.generateTable('olega')));
+                                  }
+                                  FocusScope.of(context).unfocus();
                                   Navigator.of(context).pop();
                                 },
                                 child: Container(
