@@ -17,7 +17,7 @@ class AppTextButton extends StatelessWidget {
       child: Text(
         title,
         style: const TextStyle(
-          color: kDarkColor,
+          color: kBrightColor,
           fontSize: 24
         ),
       )

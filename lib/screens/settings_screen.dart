@@ -21,7 +21,7 @@ class SettingsScreen extends StatelessWidget {
         Text(
           AppLocalizations.of(context)!.settings,
           style: const TextStyle(
-            color: kDarkColor,
+            color: kBrightColor,
             fontSize: 30,
             fontWeight: FontWeight.w700
           ),

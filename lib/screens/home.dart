@@ -29,7 +29,7 @@ class _HomeState extends State<Home> {
         )
       ],
       child: Scaffold(
-        backgroundColor: kBrightColor,
+        backgroundColor: kSecondDarkColor,
         body: Stack(
           children: [
             const Positioned(
@@ -45,7 +45,7 @@ class _HomeState extends State<Home> {
                   style: TextStyle(
                     fontWeight: FontWeight.w300,
                     fontSize: 16,
-                    color: kDarkColor
+                    color: kBrightColor
                   )
                 ),
               ),
@@ -80,7 +80,7 @@ class _HomeState extends State<Home> {
                 icon: Icon(
                   Icons.menu,
                   size: 40,
-                  color: _isSlided ? kDarkColor : kBrightColor,
+                  color: kBrightColor,
                 ),
                 onPressed: () {
                   setState(() {

@@ -276,7 +276,7 @@ class _EncryptScreenState extends State<EncryptScreen> {
                             width: MediaQuery.of(context).size.width - 80,
                             height: 98,
                             decoration: BoxDecoration(
-                              color: kDarkColor.withGreen(20).withBlue(20).withRed(20),
+                              color: kSecondDarkColor,
                               borderRadius: BorderRadius.circular(30),
                             ),
                             child: Column(
