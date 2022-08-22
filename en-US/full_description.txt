@@ -1,0 +1,3 @@
+Rivia is simple and reliable encryption tool.
+You can choose key to protect your text messages and your unique RivTable.
+Setting up Rivia is easy like choose radio wave. 
