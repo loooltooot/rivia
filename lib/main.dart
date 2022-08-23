@@ -23,8 +23,8 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [
-        Locale('ru', ''),
         Locale('en', ''),
+        Locale('ru', ''),
       ],
       home: Home()
     );
